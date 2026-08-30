@@ -1,0 +1,401 @@
+.ticket-details-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding: 35px 40px;
+}
+
+.ticket-details-container {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+
+/* Back */
+
+.back-ticket-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 25px;
+}
+
+.back-ticket-link:hover {
+  color: #2563eb;
+}
+
+
+/* Header */
+
+.ticket-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.ticket-id-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.ticket-page-header h1 {
+  color: #111827;
+  font-size: 27px;
+  margin-bottom: 7px;
+}
+
+.ticket-page-header p {
+  color: #64748b;
+  font-size: 13px;
+}
+
+
+/* Status */
+
+.details-status {
+  padding: 7px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.details-status.open {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.details-status.in-progress {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.details-status.pending {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.details-status.resolved {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.details-status.closed {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+
+/* Grid */
+
+.ticket-details-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 22px;
+}
+
+
+/* Cards */
+
+.details-card,
+.ai-analysis-card,
+.ticket-sidebar-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 13px;
+}
+
+
+/* Issue Details */
+
+.details-card {
+  padding: 28px;
+  margin-bottom: 22px;
+}
+
+.card-heading {
+  margin-bottom: 25px;
+}
+
+.card-heading h2 {
+  color: #111827;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.card-heading p {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.description-box {
+  background: #f8fafc;
+  border-radius: 9px;
+  padding: 18px;
+  margin-bottom: 25px;
+}
+
+.description-box h3 {
+  color: #374151;
+  font-size: 13px;
+  margin-bottom: 9px;
+}
+
+.description-box p {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+
+/* Meta */
+
+.details-meta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.meta-item {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 15px;
+}
+
+.meta-item span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #94a3b8;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.meta-item strong {
+  color: #374151;
+  font-size: 13px;
+}
+
+.priority-text.low {
+  color: #16a34a;
+}
+
+.priority-text.medium {
+  color: #d97706;
+}
+
+.priority-text.high,
+.priority-text.critical {
+  color: #dc2626;
+}
+
+
+/* AI */
+
+.ai-analysis-card {
+  overflow: hidden;
+  border-color: #bfdbfe;
+}
+
+.ai-analysis-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px;
+  background: #eff6ff;
+  border-bottom: 1px solid #dbeafe;
+}
+
+.ai-analysis-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-analysis-header h2 {
+  color: #1e40af;
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.ai-analysis-header p {
+  color: #64748b;
+  font-size: 11px;
+}
+
+.ai-resolution {
+  padding: 24px;
+}
+
+.ai-resolution h3 {
+  color: #374151;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.ai-resolution p {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+.ai-disclaimer {
+  margin: 0 24px 24px;
+  padding: 11px 13px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  background: #f8fafc;
+  border-radius: 7px;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+
+/* Right Sidebar */
+
+.ticket-sidebar-card {
+  padding: 24px;
+  height: fit-content;
+}
+
+.ticket-sidebar-card h3 {
+  color: #111827;
+  font-size: 16px;
+  margin-bottom: 22px;
+}
+
+.side-info {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+}
+
+.side-info > div {
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 16px;
+}
+
+.side-info span {
+  display: block;
+  color: #94a3b8;
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+
+.side-info strong {
+  display: block;
+  color: #374151;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.created-by {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+}
+
+
+/* Active status */
+
+.side-status-box {
+  margin-top: 22px;
+  padding: 13px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  display: flex;
+  gap: 9px;
+  color: #16a34a;
+}
+
+.side-status-box strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.side-status-box p {
+  color: #64748b;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+
+/* Loading / Error */
+
+.ticket-details-message {
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #64748b;
+  text-align: center;
+}
+
+.ticket-details-message h2 {
+  color: #1f2937;
+  font-size: 20px;
+}
+
+.ticket-details-message p {
+  max-width: 400px;
+  font-size: 13px;
+}
+
+.error-state {
+  color: #b91c1c;
+}
+
+.back-dashboard-button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #2563eb;
+  color: white;
+  border-radius: 7px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+}
+
+
+/* Responsive */
+
+@media (max-width: 850px) {
+
+  .ticket-details-page {
+    padding: 25px 20px;
+  }
+
+  .ticket-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .details-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .ticket-page-header {
+    flex-direction: column;
+  }
+
+}

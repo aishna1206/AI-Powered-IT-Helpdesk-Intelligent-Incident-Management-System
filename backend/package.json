@@ -1,0 +1,29 @@
+{
+  "name": "ai-it-helpdesk-backend",
+  "version": "1.0.0",
+  "description": "Backend API for AI-powered IT Helpdesk",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "it-helpdesk",
+    "incident-management",
+    "express",
+    "mongodb",
+    "ai"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^2.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

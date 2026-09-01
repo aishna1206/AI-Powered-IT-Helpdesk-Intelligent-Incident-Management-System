@@ -1,76 +1,209 @@
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL =
+  "http://localhost:5000/api";
 
 
-// ============================================
-// CREATE TICKET
-// ============================================
+const getAuthToken = () => {
+  return localStorage.getItem(
+    "authToken"
+  );
+};
 
-export const createTicket = async (ticketData) => {
-  const response = await fetch(
-    `${API_BASE_URL}/tickets`,
-    {
-      method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-      },
+const authenticatedRequest =
+  async (url, options = {}) => {
 
-      body: JSON.stringify(ticketData),
+    const token =
+      getAuthToken();
+
+
+    const headers = {
+      ...(options.headers || {}),
+    };
+
+
+    if (token) {
+
+      headers.Authorization =
+        `Bearer ${token}`;
+
     }
-  );
 
-  const data = await response.json();
 
-  if (!response.ok) {
-    throw new Error(
-      data.message ||
-      "Failed to create ticket"
+    const response =
+      await fetch(
+        url,
+        {
+          ...options,
+          headers,
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.message ||
+        "Request failed"
+      );
+
+    }
+
+
+    return data;
+
+  };
+
+
+// ============================================
+// AUTH
+// ============================================
+
+export const registerUser =
+  async (userData) => {
+
+    return authenticatedRequest(
+      `${API_BASE_URL}/auth/register`,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body:
+          JSON.stringify(
+            userData
+          ),
+      }
     );
-  }
 
-  return data;
-};
+  };
 
 
-// ============================================
-// GET ALL TICKETS
-// ============================================
+export const loginUser =
+  async (credentials) => {
 
-export const getTickets = async () => {
-  const response = await fetch(
-    `${API_BASE_URL}/tickets`
-  );
+    return authenticatedRequest(
+      `${API_BASE_URL}/auth/login`,
+      {
+        method: "POST",
 
-  const data = await response.json();
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
 
-  if (!response.ok) {
-    throw new Error(
-      data.message ||
-      "Failed to fetch tickets"
+        body:
+          JSON.stringify(
+            credentials
+          ),
+      }
     );
-  }
 
-  return data;
-};
+  };
 
 
-// ============================================
-// GET ONE TICKET
-// ============================================
+export const getCurrentUser =
+  async () => {
 
-export const getTicket = async (ticketId) => {
-  const response = await fetch(
-    `${API_BASE_URL}/tickets/${encodeURIComponent(ticketId)}`
-  );
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      data.message ||
-      "Failed to fetch ticket"
+    return authenticatedRequest(
+      `${API_BASE_URL}/auth/me`
     );
-  }
 
-  return data;
-};
+  };
+
+
+// ============================================
+// TICKETS
+// ============================================
+
+export const createTicket =
+  async (ticketData) => {
+
+    return authenticatedRequest(
+      `${API_BASE_URL}/tickets`,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body:
+          JSON.stringify(
+            ticketData
+          ),
+      }
+    );
+
+  };
+
+
+export const getTickets =
+  async () => {
+
+    return authenticatedRequest(
+      `${API_BASE_URL}/tickets`
+    );
+
+  };
+
+
+export const getTicket =
+  async (ticketId) => {
+
+    return authenticatedRequest(
+      `${API_BASE_URL}/tickets/${encodeURIComponent(
+        ticketId
+      )}`
+    );
+
+  };
+
+
+export const updateTicket =
+  async (
+    ticketId,
+    updates
+  ) => {
+
+    return authenticatedRequest(
+      `${API_BASE_URL}/tickets/${encodeURIComponent(
+        ticketId
+      )}`,
+      {
+        method: "PATCH",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body:
+          JSON.stringify(
+            updates
+          ),
+      }
+    );
+
+  };
+
+
+// ============================================
+// USERS
+// ============================================
+
+export const getUsers =
+  async () => {
+
+    return authenticatedRequest(
+      `${API_BASE_URL}/users`
+    );
+
+  };

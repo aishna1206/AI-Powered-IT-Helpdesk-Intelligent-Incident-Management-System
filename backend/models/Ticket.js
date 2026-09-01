@@ -5,19 +5,19 @@ const ticketSchema = new mongoose.Schema(
     ticketId: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
 
     title: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
 
     description: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
 
     category: {
@@ -27,9 +27,9 @@ const ticketSchema = new mongoose.Schema(
         "Software",
         "Network",
         "Access",
-        "Other"
+        "Other",
       ],
-      default: "Other"
+      default: "Other",
     },
 
     priority: {
@@ -38,9 +38,9 @@ const ticketSchema = new mongoose.Schema(
         "Low",
         "Medium",
         "High",
-        "Critical"
+        "Critical",
       ],
-      default: "Medium"
+      default: "Medium",
     },
 
     status: {
@@ -50,38 +50,59 @@ const ticketSchema = new mongoose.Schema(
         "In Progress",
         "Pending",
         "Resolved",
-        "Closed"
+        "Closed",
       ],
-      default: "Open"
+      default: "Open",
     },
 
     createdBy: {
       name: {
         type: String,
-        default: "Employee"
+        default: "Employee",
       },
 
       email: {
         type: String,
-        default: ""
-      }
+        default: "",
+      },
+    },
+
+    assignedTo: {
+      name: {
+        type: String,
+        default: "",
+      },
+
+      email: {
+        type: String,
+        default: "",
+      },
+    },
+
+    resolution: {
+      type: String,
+      default: "",
+      trim: true,
     },
 
     aiAnalysis: {
       suggestedResolution: {
         type: String,
-        default: ""
+        default: "",
       },
 
       confidence: {
         type: Number,
-        default: 0
-      }
-    }
+        default: 0,
+      },
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
-module.exports = mongoose.model("Ticket", ticketSchema);
+module.exports = mongoose.model(
+  "Ticket",
+  ticketSchema
+);

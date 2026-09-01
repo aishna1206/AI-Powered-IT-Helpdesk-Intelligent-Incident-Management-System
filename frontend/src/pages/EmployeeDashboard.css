@@ -434,3 +434,29 @@
 .ticket-row-link:hover .ticket-info strong {
   color: #1d4ed8;
 }
+.logout-button {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  text-align: left;
+}
+.dashboard-page-content {
+  width: 100%;
+  padding: 25px 40px 40px;
+}
+
+.dashboard-heading {
+  margin-bottom: 28px;
+}
+
+.dashboard-heading h1 {
+  color: #111827;
+  font-size: 27px;
+  margin-bottom: 6px;
+}
+
+.dashboard-heading p {
+  color: #64748b;
+  font-size: 13px;
+}

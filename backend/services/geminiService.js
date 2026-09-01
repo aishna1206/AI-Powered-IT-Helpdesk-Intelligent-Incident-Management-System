@@ -78,7 +78,7 @@ Important:
 `;
 
   const interaction = await ai.interactions.create({
-    model: "gemini-3.7-flash",
+    model: "gemini-3.5-flash-lite",
 
     input: prompt,
 

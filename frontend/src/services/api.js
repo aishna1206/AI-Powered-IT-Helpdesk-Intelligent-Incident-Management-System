@@ -1,4 +1,5 @@
 const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
   "http://localhost:5000/api";
 
 
@@ -7,9 +8,7 @@ const API_BASE_URL =
 // ============================================
 
 const getAuthToken = () => {
-  return sessionStorage.getItem(
-    "authToken"
-  );
+  return sessionStorage.getItem("authToken");
 };
 
 
@@ -17,185 +16,162 @@ const getAuthToken = () => {
 // AUTHENTICATED REQUEST
 // ============================================
 
-const authenticatedRequest =
-  async (url, options = {}) => {
+const authenticatedRequest = async (
+  url,
+  options = {}
+) => {
+  const token = getAuthToken();
 
-    const token =
-      getAuthToken();
-
-    const headers = {
-      ...(options.headers || {}),
-    };
-
-    if (token) {
-      headers.Authorization =
-        `Bearer ${token}`;
-    }
-
-    const response =
-      await fetch(
-        url,
-        {
-          ...options,
-          headers,
-        }
-      );
-
-    const data =
-      await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.message ||
-        "Request failed"
-      );
-    }
-
-    return data;
+  const headers = {
+    ...(options.headers || {}),
   };
+
+  if (token) {
+    headers.Authorization =
+      `Bearer ${token}`;
+  }
+
+  const response = await fetch(
+    url,
+    {
+      ...options,
+      headers,
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Request failed"
+    );
+  }
+
+  return data;
+};
 
 
 // ============================================
 // AUTH
 // ============================================
 
-export const registerUser =
-  async (userData) => {
+export const registerUser = async (
+  userData
+) => {
+  return authenticatedRequest(
+    `${API_BASE_URL}/auth/register`,
+    {
+      method: "POST",
 
-    return authenticatedRequest(
-      `${API_BASE_URL}/auth/register`,
-      {
-        method: "POST",
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
 
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-
-        body:
-          JSON.stringify(
-            userData
-          ),
-      }
-    );
-  };
+      body: JSON.stringify(userData),
+    }
+  );
+};
 
 
-export const loginUser =
-  async (credentials) => {
+export const loginUser = async (
+  credentials
+) => {
+  return authenticatedRequest(
+    `${API_BASE_URL}/auth/login`,
+    {
+      method: "POST",
 
-    return authenticatedRequest(
-      `${API_BASE_URL}/auth/login`,
-      {
-        method: "POST",
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
 
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-
-        body:
-          JSON.stringify(
-            credentials
-          ),
-      }
-    );
-  };
+      body: JSON.stringify(credentials),
+    }
+  );
+};
 
 
-export const getCurrentUser =
-  async () => {
-
-    return authenticatedRequest(
-      `${API_BASE_URL}/auth/me`
-    );
-  };
+export const getCurrentUser = async () => {
+  return authenticatedRequest(
+    `${API_BASE_URL}/auth/me`
+  );
+};
 
 
 // ============================================
 // TICKETS
 // ============================================
 
-export const createTicket =
-  async (ticketData) => {
+export const createTicket = async (
+  ticketData
+) => {
+  return authenticatedRequest(
+    `${API_BASE_URL}/tickets`,
+    {
+      method: "POST",
 
-    return authenticatedRequest(
-      `${API_BASE_URL}/tickets`,
-      {
-        method: "POST",
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
 
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-
-        body:
-          JSON.stringify(
-            ticketData
-          ),
-      }
-    );
-  };
+      body: JSON.stringify(ticketData),
+    }
+  );
+};
 
 
-export const getTickets =
-  async () => {
-
-    return authenticatedRequest(
-      `${API_BASE_URL}/tickets`
-    );
-  };
+export const getTickets = async () => {
+  return authenticatedRequest(
+    `${API_BASE_URL}/tickets`
+  );
+};
 
 
-export const getTicket =
-  async (ticketId) => {
+export const getTicket = async (
+  ticketId
+) => {
+  return authenticatedRequest(
+    `${API_BASE_URL}/tickets/${encodeURIComponent(
+      ticketId
+    )}`
+  );
+};
 
-    return authenticatedRequest(
-      `${API_BASE_URL}/tickets/${encodeURIComponent(
-        ticketId
-      )}`
-    );
-  };
 
+export const updateTicket = async (
+  ticketId,
+  updates
+) => {
+  return authenticatedRequest(
+    `${API_BASE_URL}/tickets/${encodeURIComponent(
+      ticketId
+    )}`,
+    {
+      method: "PATCH",
 
-export const updateTicket =
-  async (
-    ticketId,
-    updates
-  ) => {
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
 
-    return authenticatedRequest(
-      `${API_BASE_URL}/tickets/${encodeURIComponent(
-        ticketId
-      )}`,
-      {
-        method: "PATCH",
-
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-
-        body:
-          JSON.stringify(
-            updates
-          ),
-      }
-    );
-  };
+      body: JSON.stringify(updates),
+    }
+  );
+};
 
 
 // ============================================
 // USERS
 // ============================================
 
-export const getUsers =
-  async () => {
-
-    return authenticatedRequest(
-      `${API_BASE_URL}/users`
-    );
-  };
+export const getUsers = async () => {
+  return authenticatedRequest(
+    `${API_BASE_URL}/users`
+  );
+};
 
 
 // ============================================
@@ -205,7 +181,6 @@ export const getUsers =
 export const changePassword = async (
   passwordData
 ) => {
-
   return authenticatedRequest(
     `${API_BASE_URL}/auth/change-password`,
     {
@@ -216,10 +191,7 @@ export const changePassword = async (
           "application/json",
       },
 
-      body:
-        JSON.stringify(
-          passwordData
-        ),
+      body: JSON.stringify(passwordData),
     }
   );
 };

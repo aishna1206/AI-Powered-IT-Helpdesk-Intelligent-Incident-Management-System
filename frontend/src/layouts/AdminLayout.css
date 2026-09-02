@@ -1,74 +1,100 @@
+/* =========================================
+   ADMIN LAYOUT
+   Enterprise IT Helpdesk Style
+   ========================================= */
+
 .admin-layout {
   width: 100%;
   min-height: 100vh;
+
   display: flex;
-  background: #f7f8fa;
+
+  background: #f5f7fa;
+  color: #1f2937;
 }
+
 
 /* =========================================
    SIDEBAR
    ========================================= */
 
 .admin-layout .admin-sidebar {
-  position: relative;
-  z-index: 1000;
-
-  width: 220px;
-  min-width: 220px;
+  width: 248px;
+  min-width: 248px;
   min-height: 100vh;
 
   display: flex;
   flex-direction: column;
 
-  padding: 18px 12px;
+  padding: 20px 14px;
 
-  background: #172033;
-  border-right: 1px solid #25314a;
-
+  background: #111827;
   color: #ffffff;
+
+  border-right: 1px solid #1f2937;
+
+  position: relative;
+  z-index: 1000;
 
   overflow: visible;
 }
 
+
+/* =========================================
+   BRAND
+   ========================================= */
+
 .admin-layout .admin-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
 
-  padding: 4px 8px 22px;
+  padding: 5px 9px 24px;
 }
 
 .admin-layout .admin-brand-icon {
-  width: 34px;
-  height: 34px;
+  width: 37px;
+  height: 37px;
 
-  flex-shrink: 0;
+  flex: 0 0 auto;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 6px;
+  border-radius: 8px;
 
   background: #2563eb;
   color: #ffffff !important;
 
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
+  letter-spacing: 0.03em;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }
 
 .admin-layout .admin-brand h2 {
   margin: 0 !important;
+
   color: #ffffff !important;
-  font-size: 14px !important;
+
+  font-size: 15px !important;
+  font-weight: 650 !important;
+  line-height: 1.2;
 }
 
 .admin-layout .admin-brand span {
   display: block;
-  margin-top: 3px;
-  color: #98a2b3 !important;
-  font-size: 10px !important;
+
+  margin-top: 4px;
+
+  color: #9ca3af !important;
+
+  font-size: 11px !important;
+  line-height: 1.2;
 }
+
 
 /* =========================================
    NAVIGATION
@@ -80,30 +106,33 @@
 
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
+
+  margin-top: 4px;
 }
 
 .admin-layout .admin-nav-item {
   position: relative;
   z-index: 1002;
 
+  width: 100%;
+  min-height: 42px;
+
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
 
-  width: 100%;
-  min-height: 38px;
+  padding: 9px 11px;
 
-  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 7px;
 
-  border-radius: 6px;
-
-  color: #c6cedb !important;
   background: transparent;
+  color: #cbd5e1 !important;
 
   text-decoration: none;
 
-  font-size: 12px !important;
+  font-size: 13px !important;
   font-weight: 500;
 
   cursor: pointer;
@@ -112,21 +141,29 @@
 
   transition:
     background 0.15s ease,
-    color 0.15s ease;
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.admin-layout .admin-nav-item svg {
+  flex-shrink: 0;
 }
 
 .admin-layout .admin-nav-item:hover {
-  background: #202c42;
+  background: #1f2937;
+  border-color: #273449;
   color: #ffffff !important;
 }
 
 .admin-layout .admin-nav-item.active {
-  background: #2563eb;
+  background: #1d4ed8;
+  border-color: #2563eb;
   color: #ffffff !important;
 }
 
+
 /* =========================================
-   BOTTOM NAV
+   SIDEBAR BOTTOM
    ========================================= */
 
 .admin-layout .admin-sidebar-bottom {
@@ -135,9 +172,13 @@
 
   margin-top: auto;
 
+  padding-top: 16px;
+
+  border-top: 1px solid #1f2937;
+
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 
 .admin-layout .admin-sidebar-bottom a,
@@ -148,39 +189,45 @@
   pointer-events: auto;
 }
 
+
 /* =========================================
    LOGOUT
    ========================================= */
 
 .admin-layout .admin-logout-btn {
   width: 100%;
+  min-height: 42px;
 
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
 
-  min-height: 38px;
+  padding: 9px 11px;
 
-  padding: 8px 10px;
-
-  border: 0;
-  border-radius: 6px;
+  border: 1px solid transparent;
+  border-radius: 7px;
 
   background: transparent;
-  color: #c6cedb !important;
+  color: #cbd5e1 !important;
 
-  font-size: 12px !important;
+  font-size: 13px !important;
   font-weight: 500;
 
   cursor: pointer;
-
   text-align: left;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .admin-layout .admin-logout-btn:hover {
-  background: #202c42;
-  color: #ffffff !important;
+  background: #3a2024;
+  border-color: #54292f;
+  color: #fca5a5 !important;
 }
+
 
 /* =========================================
    MAIN
@@ -188,6 +235,7 @@
 
 .admin-layout .admin-main {
   flex: 1;
+
   min-width: 0;
   min-height: 100vh;
 
@@ -198,23 +246,24 @@
   z-index: 1;
 }
 
+
 /* =========================================
    HEADER
    ========================================= */
 
 .admin-layout .admin-header {
-  height: 60px;
-  min-height: 60px;
+  min-height: 70px;
+  height: 70px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 22px;
+  padding: 0 30px;
 
   background: #ffffff;
 
-  border-bottom: 1px solid #e4e7ec;
+  border-bottom: 1px solid #e5e7eb;
 
   position: relative;
   z-index: 2;
@@ -222,26 +271,52 @@
 
 .admin-layout .admin-header h1 {
   margin: 0;
-  color: #101828 !important;
-  font-size: 15px !important;
+
+  color: #1f2937 !important;
+
+  font-size: 17px !important;
   font-weight: 650 !important;
+  line-height: 1.2;
 }
 
 .admin-layout .admin-header p {
-  margin: 3px 0 0;
-  color: #667085 !important;
-  font-size: 11px !important;
+  margin: 4px 0 0;
+
+  color: #6b7280 !important;
+
+  font-size: 12px !important;
+  line-height: 1.3;
 }
+
+
+/* =========================================
+   HEADER RIGHT SIDE
+   ========================================= */
+
+.admin-layout .admin-header > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+
+/* =========================================
+   USER PROFILE
+   ========================================= */
 
 .admin-layout .admin-user {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+
+  min-width: 0;
 }
 
 .admin-layout .admin-user-icon {
-  width: 31px;
-  height: 31px;
+  width: 35px;
+  height: 35px;
+
+  flex: 0 0 auto;
 
   display: flex;
   align-items: center;
@@ -254,21 +329,42 @@
   color: #2563eb;
 }
 
-.admin-layout .admin-user-info {
+.admin-layout .admin-header .admin-user-info {
   display: flex;
   flex-direction: column;
+
+  min-width: 0;
 }
 
 .admin-layout .admin-user-info strong {
-  color: #344054 !important;
-  font-size: 11px !important;
+  color: #1f2937 !important;
+
+  font-size: 12px !important;
+  font-weight: 600 !important;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .admin-layout .admin-user-info span {
-  margin-top: 1px;
-  color: #98a2b3 !important;
+  margin-top: 2px;
+
+  color: #6b7280 !important;
+
   font-size: 10px !important;
+  line-height: 1.2;
 }
+
+
+/* =========================================
+   NOTIFICATIONS
+   ========================================= */
+
+.admin-layout .notification-wrapper {
+  flex: 0 0 auto;
+}
+
 
 /* =========================================
    CONTENT
@@ -278,11 +374,13 @@
   flex: 1;
 
   width: 100%;
-  max-width: none;
+  max-width: 1480px;
 
-  margin: 0;
+  margin: 0 auto;
 
-  padding: 20px 22px 26px;
+  padding: 28px 30px 36px;
+
+  box-sizing: border-box;
 
   position: relative;
   z-index: 1;
@@ -290,19 +388,54 @@
   overflow-x: hidden;
 }
 
+
 /* =========================================
-   MOBILE
+   RESPONSIVE
    ========================================= */
+
+@media (max-width: 1100px) {
+  .admin-layout .admin-sidebar {
+    width: 225px;
+    min-width: 225px;
+  }
+
+  .admin-layout .admin-header {
+    padding: 0 24px;
+  }
+
+  .admin-layout .admin-content {
+    padding: 24px 24px 32px;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .admin-layout .admin-sidebar {
+    width: 210px;
+    min-width: 210px;
+  }
+
+  .admin-layout .admin-header {
+    padding: 0 20px;
+  }
+
+  .admin-layout .admin-content {
+    padding: 22px 20px 28px;
+  }
+}
+
 
 @media (max-width: 680px) {
   .admin-layout .admin-sidebar {
-    width: 62px;
-    min-width: 62px;
-    padding: 16px 8px;
+    width: 68px;
+    min-width: 68px;
+
+    padding: 18px 9px;
   }
 
   .admin-layout .admin-brand {
     justify-content: center;
+
     padding-left: 0;
     padding-right: 0;
   }
@@ -322,7 +455,14 @@
   }
 
   .admin-layout .admin-header {
-    padding: 0 14px;
+    min-height: 64px;
+    height: 64px;
+
+    padding: 0 15px;
+  }
+
+  .admin-layout .admin-header > div:last-child {
+    gap: 10px;
   }
 
   .admin-layout .admin-user-info {
@@ -330,6 +470,22 @@
   }
 
   .admin-layout .admin-content {
-    padding: 15px;
+    padding: 18px 15px 24px;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .admin-layout .admin-header {
+    padding: 0 11px;
+  }
+
+  .admin-layout .admin-header > div:last-child {
+    gap: 8px;
+  }
+
+  .admin-layout .admin-content {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }

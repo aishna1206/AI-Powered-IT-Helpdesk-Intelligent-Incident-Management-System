@@ -1,21 +1,23 @@
 /* =========================================
    EMPLOYEE LAYOUT
+   Enterprise IT Helpdesk Style
    ========================================= */
 
 .employee-layout {
   min-height: 100vh;
   display: flex;
-
-  background: #f7f8fa;
+  background: #f5f7fa;
+  color: #1f2937;
 }
+
 
 /* =========================================
    SIDEBAR
    ========================================= */
 
 .employee-sidebar {
-  width: 240px;
-  min-width: 240px;
+  width: 248px;
+  min-width: 248px;
   min-height: 100vh;
 
   display: flex;
@@ -23,43 +25,53 @@
 
   padding: 20px 14px;
 
-  background: #172033;
+  background: #111827;
   color: #ffffff;
 
-  border-right: 1px solid #25314a;
+  border-right: 1px solid #1f2937;
 }
+
 
 /* =========================================
    BRAND
    ========================================= */
 
-.employee-brand {
+.employee-brand,
+.employee-logo {
   display: flex;
   align-items: center;
   gap: 11px;
 
-  padding: 4px 8px 24px;
+  padding: 5px 9px 24px;
+
+  color: #ffffff;
 }
 
-.employee-brand-icon {
-  width: 36px;
-  height: 36px;
+.employee-brand-icon,
+.employee-logo-icon {
+  width: 37px;
+  height: 37px;
+
+  flex: 0 0 auto;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 7px;
+  border-radius: 8px;
 
   background: #2563eb;
   color: #ffffff;
 
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }
 
-.employee-brand h2 {
+.employee-brand h2,
+.employee-logo h2 {
   margin: 0;
 
   color: #ffffff;
@@ -69,15 +81,18 @@
   line-height: 1.2;
 }
 
-.employee-brand span {
+.employee-brand span,
+.employee-logo span {
   display: block;
 
-  margin-top: 3px;
+  margin-top: 4px;
 
-  color: #98a2b3;
+  color: #9ca3af;
 
   font-size: 11px;
+  line-height: 1.2;
 }
+
 
 /* =========================================
    NAVIGATION
@@ -86,28 +101,36 @@
 .employee-nav {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
+
+  margin-top: 4px;
 }
 
 .employee-nav-item {
+  min-height: 42px;
+  padding: 9px 11px;
+
   display: flex;
   align-items: center;
   gap: 11px;
 
-  min-height: 40px;
-  padding: 9px 11px;
+  border: 1px solid transparent;
+  border-radius: 7px;
 
-  border-radius: 6px;
+  color: #cbd5e1;
+  background: transparent;
 
-  color: #c6cedb;
   text-decoration: none;
 
   font-size: 13px;
   font-weight: 500;
 
+  cursor: pointer;
+
   transition:
     background 0.15s ease,
-    color 0.15s ease;
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .employee-nav-item svg {
@@ -115,14 +138,17 @@
 }
 
 .employee-nav-item:hover {
-  background: #202c42;
+  background: #1f2937;
+  border-color: #273449;
   color: #ffffff;
 }
 
 .employee-nav-item.active {
-  background: #2563eb;
+  background: #1d4ed8;
+  border-color: #2563eb;
   color: #ffffff;
 }
+
 
 /* =========================================
    SIDEBAR BOTTOM
@@ -130,10 +156,19 @@
 
 .employee-sidebar-bottom {
   margin-top: auto;
+
+  padding-top: 16px;
+
+  border-top: 1px solid #1f2937;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.employee-logout-btn {
+.employee-settings-btn {
   width: 100%;
+  min-height: 42px;
 
   display: flex;
   align-items: center;
@@ -141,11 +176,11 @@
 
   padding: 9px 11px;
 
-  border: 0;
-  border-radius: 6px;
+  border: 1px solid transparent;
+  border-radius: 7px;
 
   background: transparent;
-  color: #c6cedb;
+  color: #cbd5e1;
 
   font-size: 13px;
   font-weight: 500;
@@ -155,13 +190,53 @@
 
   transition:
     background 0.15s ease,
-    color 0.15s ease;
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
-.employee-logout-btn:hover {
-  background: #202c42;
+.employee-settings-btn:hover {
+  background: #1f2937;
+  border-color: #273449;
   color: #ffffff;
 }
+
+.employee-logout-btn,
+.employee-logout {
+  width: 100%;
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  padding: 9px 11px;
+
+  border: 1px solid transparent;
+  border-radius: 7px;
+
+  background: transparent;
+  color: #cbd5e1;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.employee-logout-btn:hover,
+.employee-logout:hover {
+  background: #3a2024;
+  border-color: #54292f;
+  color: #fca5a5;
+}
+
 
 /* =========================================
    MAIN
@@ -176,52 +251,52 @@
   flex-direction: column;
 }
 
+
 /* =========================================
    HEADER
    ========================================= */
 
 .employee-header {
-  height: 68px;
-  min-height: 68px;
+  min-height: 70px;
+  height: 70px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 28px;
+  padding: 0 30px;
 
   background: #ffffff;
 
-  border-bottom: 1px solid #e4e7ec;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.employee-header h1 {
-  margin: 0;
-
-  color: #101828;
-
-  font-size: 17px;
-  font-weight: 650;
-  line-height: 1.2;
+.employee-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-.employee-header p {
-  margin: 4px 0 0;
 
-  color: #667085;
+/* =========================================
+   PROFILE
+   ========================================= */
 
-  font-size: 12px;
-}
-
+.employee-profile,
 .employee-user {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
+
+  min-width: 0;
 }
 
+.employee-avatar,
 .employee-user-icon {
-  width: 34px;
-  height: 34px;
+  width: 35px;
+  height: 35px;
+
+  flex: 0 0 auto;
 
   display: flex;
   align-items: center;
@@ -232,27 +307,41 @@
 
   background: #eff6ff;
   color: #2563eb;
+
+  font-size: 13px;
+  font-weight: 700;
 }
 
+.employee-profile > div:last-child,
 .employee-user-info {
   display: flex;
   flex-direction: column;
+
+  min-width: 0;
 }
 
+.employee-profile strong,
 .employee-user-info strong {
-  color: #344054;
+  color: #1f2937;
 
   font-size: 12px;
   font-weight: 600;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.employee-profile small,
 .employee-user-info span {
   margin-top: 2px;
 
-  color: #98a2b3;
+  color: #6b7280;
 
-  font-size: 11px;
+  font-size: 10px;
+  line-height: 1.2;
 }
+
 
 /* =========================================
    CONTENT
@@ -262,15 +351,44 @@
   flex: 1;
 
   width: 100%;
-  max-width: 1440px;
+  max-width: 1480px;
 
   margin: 0 auto;
-  padding: 24px 28px 32px;
+
+  padding: 28px 30px 36px;
+
+  box-sizing: border-box;
 }
+
+
+/* =========================================
+   NOTIFICATION AREA
+   ========================================= */
+
+.employee-header .notification-wrapper {
+  flex: 0 0 auto;
+}
+
 
 /* =========================================
    RESPONSIVE
    ========================================= */
+
+@media (max-width: 1100px) {
+  .employee-sidebar {
+    width: 225px;
+    min-width: 225px;
+  }
+
+  .employee-header {
+    padding: 0 24px;
+  }
+
+  .employee-content {
+    padding: 24px 24px 32px;
+  }
+}
+
 
 @media (max-width: 900px) {
   .employee-sidebar {
@@ -278,14 +396,15 @@
     min-width: 210px;
   }
 
-  .employee-content {
-    padding: 22px 20px 28px;
-  }
-
   .employee-header {
     padding: 0 20px;
   }
+
+  .employee-content {
+    padding: 22px 20px 28px;
+  }
 }
+
 
 @media (max-width: 680px) {
   .employee-sidebar {
@@ -295,35 +414,66 @@
     padding: 18px 9px;
   }
 
-  .employee-brand {
+  .employee-brand,
+  .employee-logo {
     justify-content: center;
+
     padding-left: 0;
     padding-right: 0;
   }
 
-  .employee-brand > div:last-child {
+  .employee-brand > div:last-child,
+  .employee-logo > div:last-child {
     display: none;
   }
 
   .employee-nav-item,
-  .employee-logout-btn {
+  .employee-settings-btn,
+  .employee-logout-btn,
+  .employee-logout {
     justify-content: center;
   }
 
   .employee-nav-item span,
-  .employee-logout-btn span {
+  .employee-settings-btn span,
+  .employee-logout-btn span,
+  .employee-logout span {
     display: none;
   }
 
   .employee-header {
+    min-height: 64px;
+    height: 64px;
+
     padding: 0 15px;
   }
 
+  .employee-header-right {
+    gap: 10px;
+  }
+
+  .employee-profile > div:last-child,
   .employee-user-info {
     display: none;
   }
 
   .employee-content {
     padding: 18px 15px 24px;
+  }
+}
+
+
+@media (max-width: 420px) {
+  .employee-header {
+    padding: 0 11px;
+  }
+
+  .employee-header-right {
+    gap: 8px;
+  }
+
+  .employee-content {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }

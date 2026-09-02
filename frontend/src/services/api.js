@@ -2,12 +2,20 @@ const API_BASE_URL =
   "http://localhost:5000/api";
 
 
+// ============================================
+// AUTH TOKEN
+// ============================================
+
 const getAuthToken = () => {
-  return localStorage.getItem(
+  return sessionStorage.getItem(
     "authToken"
   );
 };
 
+
+// ============================================
+// AUTHENTICATED REQUEST
+// ============================================
 
 const authenticatedRequest =
   async (url, options = {}) => {
@@ -15,19 +23,14 @@ const authenticatedRequest =
     const token =
       getAuthToken();
 
-
     const headers = {
       ...(options.headers || {}),
     };
 
-
     if (token) {
-
       headers.Authorization =
         `Bearer ${token}`;
-
     }
-
 
     const response =
       await fetch(
@@ -38,23 +41,17 @@ const authenticatedRequest =
         }
       );
 
-
     const data =
       await response.json();
 
-
     if (!response.ok) {
-
       throw new Error(
         data.message ||
         "Request failed"
       );
-
     }
 
-
     return data;
-
   };
 
 
@@ -81,7 +78,6 @@ export const registerUser =
           ),
       }
     );
-
   };
 
 
@@ -104,7 +100,6 @@ export const loginUser =
           ),
       }
     );
-
   };
 
 
@@ -114,7 +109,6 @@ export const getCurrentUser =
     return authenticatedRequest(
       `${API_BASE_URL}/auth/me`
     );
-
   };
 
 
@@ -141,7 +135,6 @@ export const createTicket =
           ),
       }
     );
-
   };
 
 
@@ -151,7 +144,6 @@ export const getTickets =
     return authenticatedRequest(
       `${API_BASE_URL}/tickets`
     );
-
   };
 
 
@@ -163,7 +155,6 @@ export const getTicket =
         ticketId
       )}`
     );
-
   };
 
 
@@ -191,7 +182,6 @@ export const updateTicket =
           ),
       }
     );
-
   };
 
 
@@ -205,5 +195,31 @@ export const getUsers =
     return authenticatedRequest(
       `${API_BASE_URL}/users`
     );
-
   };
+
+
+// ============================================
+// SETTINGS
+// ============================================
+
+export const changePassword = async (
+  passwordData
+) => {
+
+  return authenticatedRequest(
+    `${API_BASE_URL}/auth/change-password`,
+    {
+      method: "PATCH",
+
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
+
+      body:
+        JSON.stringify(
+          passwordData
+        ),
+    }
+  );
+};

@@ -18,6 +18,8 @@ import { useAuth } from "../context/AuthContext";
 
 import "./EmployeeLayout.css";
 
+import NotificationCenter from "../components/NotificationCenter";
+
 
 function EmployeeLayout() {
 
@@ -119,7 +121,7 @@ function EmployeeLayout() {
 
           <button
             type="button"
-            className="employee-nav-item"
+            className="employee-settings-btn"
             onClick={() => {
               navigate("/employee/settings");
             }}
@@ -153,13 +155,7 @@ function EmployeeLayout() {
 
           <div className="employee-header-right">
 
-            <button
-              type="button"
-              className="employee-notification"
-            >
-              <Bell size={20} />
-              <span />
-            </button>
+            <NotificationCenter />
 
 
             <div className="employee-profile">

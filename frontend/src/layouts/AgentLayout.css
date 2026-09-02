@@ -1,8 +1,8 @@
 /* =========================================
-   EMPLOYEE LAYOUT
+   AGENT LAYOUT
    ========================================= */
 
-.employee-layout {
+.agent-layout {
   min-height: 100vh;
   display: flex;
 
@@ -13,7 +13,7 @@
    SIDEBAR
    ========================================= */
 
-.employee-sidebar {
+.agent-sidebar {
   width: 240px;
   min-width: 240px;
   min-height: 100vh;
@@ -33,7 +33,7 @@
    BRAND
    ========================================= */
 
-.employee-brand {
+.agent-brand {
   display: flex;
   align-items: center;
   gap: 11px;
@@ -41,7 +41,7 @@
   padding: 4px 8px 24px;
 }
 
-.employee-brand-icon {
+.agent-brand-icon {
   width: 36px;
   height: 36px;
 
@@ -56,20 +56,18 @@
 
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.02em;
 }
 
-.employee-brand h2 {
+.agent-brand h2 {
   margin: 0;
 
   color: #ffffff;
 
   font-size: 15px;
   font-weight: 650;
-  line-height: 1.2;
 }
 
-.employee-brand span {
+.agent-brand span {
   display: block;
 
   margin-top: 3px;
@@ -83,13 +81,13 @@
    NAVIGATION
    ========================================= */
 
-.employee-nav {
+.agent-nav {
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 
-.employee-nav-item {
+.agent-nav-item {
   display: flex;
   align-items: center;
   gap: 11px;
@@ -110,29 +108,25 @@
     color 0.15s ease;
 }
 
-.employee-nav-item svg {
-  flex-shrink: 0;
-}
-
-.employee-nav-item:hover {
+.agent-nav-item:hover {
   background: #202c42;
   color: #ffffff;
 }
 
-.employee-nav-item.active {
+.agent-nav-item.active {
   background: #2563eb;
   color: #ffffff;
 }
 
 /* =========================================
-   SIDEBAR BOTTOM
+   LOGOUT
    ========================================= */
 
-.employee-sidebar-bottom {
+.agent-sidebar-bottom {
   margin-top: auto;
 }
 
-.employee-logout-btn {
+.agent-logout-btn {
   width: 100%;
 
   display: flex;
@@ -158,7 +152,7 @@
     color 0.15s ease;
 }
 
-.employee-logout-btn:hover {
+.agent-logout-btn:hover {
   background: #202c42;
   color: #ffffff;
 }
@@ -167,7 +161,7 @@
    MAIN
    ========================================= */
 
-.employee-main {
+.agent-main {
   flex: 1;
   min-width: 0;
   min-height: 100vh;
@@ -180,7 +174,7 @@
    HEADER
    ========================================= */
 
-.employee-header {
+.agent-header {
   height: 68px;
   min-height: 68px;
 
@@ -195,17 +189,16 @@
   border-bottom: 1px solid #e4e7ec;
 }
 
-.employee-header h1 {
+.agent-header h1 {
   margin: 0;
 
   color: #101828;
 
   font-size: 17px;
   font-weight: 650;
-  line-height: 1.2;
 }
 
-.employee-header p {
+.agent-header p {
   margin: 4px 0 0;
 
   color: #667085;
@@ -213,13 +206,13 @@
   font-size: 12px;
 }
 
-.employee-user {
+.agent-user {
   display: flex;
   align-items: center;
   gap: 9px;
 }
 
-.employee-user-icon {
+.agent-user-icon {
   width: 34px;
   height: 34px;
 
@@ -234,19 +227,19 @@
   color: #2563eb;
 }
 
-.employee-user-info {
+.agent-user-info {
   display: flex;
   flex-direction: column;
 }
 
-.employee-user-info strong {
+.agent-user-info strong {
   color: #344054;
 
   font-size: 12px;
   font-weight: 600;
 }
 
-.employee-user-info span {
+.agent-user-info span {
   margin-top: 2px;
 
   color: #98a2b3;
@@ -258,7 +251,7 @@
    CONTENT
    ========================================= */
 
-.employee-content {
+.agent-content {
   flex: 1;
 
   width: 100%;
@@ -273,57 +266,58 @@
    ========================================= */
 
 @media (max-width: 900px) {
-  .employee-sidebar {
+  .agent-sidebar {
     width: 210px;
     min-width: 210px;
   }
 
-  .employee-content {
-    padding: 22px 20px 28px;
+  .agent-header {
+    padding: 0 20px;
   }
 
-  .employee-header {
-    padding: 0 20px;
+  .agent-content {
+    padding: 22px 20px 28px;
   }
 }
 
 @media (max-width: 680px) {
-  .employee-sidebar {
+  .agent-sidebar {
     width: 68px;
     min-width: 68px;
 
     padding: 18px 9px;
   }
 
-  .employee-brand {
+  .agent-brand {
     justify-content: center;
+
     padding-left: 0;
     padding-right: 0;
   }
 
-  .employee-brand > div:last-child {
+  .agent-brand > div:last-child {
     display: none;
   }
 
-  .employee-nav-item,
-  .employee-logout-btn {
+  .agent-nav-item,
+  .agent-logout-btn {
     justify-content: center;
   }
 
-  .employee-nav-item span,
-  .employee-logout-btn span {
+  .agent-nav-item span,
+  .agent-logout-btn span {
     display: none;
   }
 
-  .employee-header {
+  .agent-header {
     padding: 0 15px;
   }
 
-  .employee-user-info {
+  .agent-user-info {
     display: none;
   }
 
-  .employee-content {
+  .agent-content {
     padding: 18px 15px 24px;
   }
 }

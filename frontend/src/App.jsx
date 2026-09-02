@@ -1,73 +1,45 @@
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+// Public pages
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
-import Login
-  from "./pages/Login";
+// Layouts
+import EmployeeLayout from "./layouts/EmployeeLayout";
+import AgentLayout from "./layouts/AgentLayout";
+import AdminLayout from "./layouts/AdminLayout";
 
-import Register
-  from "./pages/Register";
+// Employee pages
+import EmployeeDashboard from "./pages/EmployeeDashboard";
+import MyTickets from "./pages/MyTickets";
+import CreateTicket from "./pages/CreateTicket";
+import TicketDetails from "./pages/TicketDetails";
+import KnowledgeBase from "./pages/KnowledgeBase";
 
+// Agent pages
+import AgentDashboard from "./pages/AgentDashboard";
+import AgentTicketDetails from "./pages/AgentTicketDetails";
 
-import EmployeeLayout
-  from "./layouts/EmployeeLayout";
+// Admin pages
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminTickets from "./pages/AdminTickets";
+import AdminUsers from "./pages/AdminUsers";
+import AdminAnalytics from "./pages/AdminAnalytics";
 
-import EmployeeDashboard
-  from "./pages/EmployeeDashboard";
+// Shared pages
+import Settings from "./pages/Settings";
 
-import MyTickets
-  from "./pages/MyTickets";
-
-import CreateTicket
-  from "./pages/CreateTicket";
-
-import TicketDetails
-  from "./pages/TicketDetails";
-
-import KnowledgeBase
-  from "./pages/KnowledgeBase";
-
-
-import AgentDashboard
-  from "./pages/AgentDashboard";
-
-import AgentTicketDetails
-  from "./pages/AgentTicketDetails";
-
-
-import AdminDashboard
-  from "./pages/AdminDashboard";
-
-import AdminTickets
-  from "./pages/AdminTickets";
-
-import AdminUsers
-  from "./pages/AdminUsers";
-
-import AdminAnalytics
-  from "./pages/AdminAnalytics";
-
-
-import ProtectedRoute
-  from "./components/ProtectedRoute";
-
+// Authentication
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-
   return (
-
     <BrowserRouter>
-
       <Routes>
 
-
-        {/* ============================== */}
-        {/* PUBLIC */}
-        {/* ============================== */}
+        {/* =========================================
+            PUBLIC ROUTES
+        ========================================= */}
 
         <Route
           path="/login"
@@ -80,153 +52,141 @@ function App() {
         />
 
 
-        {/* ============================== */}
-        {/* EMPLOYEE */}
-        {/* ============================== */}
+        {/* =========================================
+            EMPLOYEE ROUTES
+        ========================================= */}
 
         <Route
           element={
             <ProtectedRoute
-              allowedRoles={[
-                "employee",
-              ]}
+              allowedRoles={["employee"]}
             />
           }
         >
-
-          <Route
-            element={
-              <EmployeeLayout />
-            }
-          >
+          <Route element={<EmployeeLayout />}>
 
             <Route
               path="/employee/dashboard"
-              element={
-                <EmployeeDashboard />
-              }
+              element={<EmployeeDashboard />}
             />
 
             <Route
               path="/employee/tickets"
-              element={
-                <MyTickets />
-              }
+              element={<MyTickets />}
             />
 
             <Route
               path="/employee/tickets/new"
-              element={
-                <CreateTicket />
-              }
+              element={<CreateTicket />}
             />
 
             <Route
               path="/employee/tickets/:ticketId"
-              element={
-                <TicketDetails />
-              }
+              element={<TicketDetails />}
             />
 
             <Route
               path="/employee/knowledge-base"
-              element={
-                <KnowledgeBase />
-              }
+              element={<KnowledgeBase />}
+            />
+
+            <Route
+              path="/employee/settings"
+              element={<Settings />}
             />
 
           </Route>
-
         </Route>
 
 
-        {/* ============================== */}
-        {/* AGENT */}
-        {/* ============================== */}
+        {/* =========================================
+            AGENT ROUTES
+        ========================================= */}
 
         <Route
           element={
             <ProtectedRoute
-              allowedRoles={[
-                "agent",
-                "admin",
-              ]}
+              allowedRoles={["agent", "admin"]}
             />
           }
         >
+          <Route element={<AgentLayout />}>
 
-          <Route
-            path="/agent/dashboard"
-            element={
-              <AgentDashboard />
-            }
-          />
+            <Route
+              path="/agent/dashboard"
+              element={<AgentDashboard />}
+            />
 
-          <Route
-            path="/agent/tickets"
-            element={
-              <AgentDashboard />
-            }
-          />
+            <Route
+              path="/agent/tickets"
+              element={<AgentDashboard />}
+            />
 
-          <Route
-            path="/agent/tickets/:ticketId"
-            element={
-              <AgentTicketDetails />
-            }
-          />
+            <Route
+              path="/agent/tickets/:ticketId"
+              element={<AgentTicketDetails />}
+            />
 
+            <Route
+              path="/agent/settings"
+              element={<Settings />}
+            />
+
+          </Route>
         </Route>
 
 
-        {/* ============================== */}
-        {/* ADMIN */}
-        {/* ============================== */}
+        {/* =========================================
+            ADMIN ROUTES
+        ========================================= */}
 
         <Route
           element={
             <ProtectedRoute
-              allowedRoles={[
-                "admin",
-              ]}
+              allowedRoles={["admin"]}
             />
           }
         >
+          <Route element={<AdminLayout />}>
 
-          <Route
-            path="/admin/dashboard"
-            element={
-              <AdminDashboard />
-            }
-          />
+            <Route
+              path="/admin/dashboard"
+              element={<AdminDashboard />}
+            />
 
-          <Route
-            path="/admin/tickets"
-            element={
-              <AdminTickets />
-            }
-          />
+            <Route
+              path="/admin/tickets"
+              element={<AdminTickets />}
+            />
 
-          <Route
-            path="/admin/users"
-            element={
-              <AdminUsers />
-            }
-          />
+            {/* Admin ticket review */}
+            <Route
+              path="/admin/tickets/:ticketId"
+              element={<AgentTicketDetails />}
+            />
 
-          <Route
-            path="/admin/analytics"
-            element={
-              <AdminAnalytics />
-            }
-          />
+            <Route
+              path="/admin/users"
+              element={<AdminUsers />}
+            />
 
+            <Route
+              path="/admin/analytics"
+              element={<AdminAnalytics />}
+            />
+
+            <Route
+              path="/admin/settings"
+              element={<Settings />}
+            />
+
+          </Route>
         </Route>
 
 
-        {/* ============================== */}
-        {/* DEFAULT */}
-        {/* ============================== */}
+        {/* =========================================
+            DEFAULT ROUTES
+        ========================================= */}
 
         <Route
           path="/"
@@ -249,10 +209,8 @@ function App() {
         />
 
       </Routes>
-
     </BrowserRouter>
   );
 }
-
 
 export default App;

@@ -1,532 +1,371 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  LayoutDashboard,
+  AlertCircle,
+  CheckCircle2,
+  Clock3,
+  Inbox,
+  RefreshCw,
   Ticket,
-  Clock,
-  AlertTriangle,
-  BarChart3,
-  Settings,
-  LogOut,
-  Bell,
-  User
 } from "lucide-react";
 
 import { getTickets } from "../services/api";
-
 import "./AgentDashboard.css";
 
-
 function AgentDashboard() {
+  const navigate = useNavigate();
 
-  const [tickets, setTickets] =
-    useState([]);
+  const [tickets, setTickets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const [loading, setLoading] =
-    useState(true);
+  const loadTickets = async () => {
+    try {
+      setLoading(true);
+      setError("");
 
-  const [error, setError] =
-    useState("");
+      const data = await getTickets();
 
+      setTickets(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error(err);
+
+      setError(
+        err.message ||
+          "Unable to load incidents. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-
-    const loadTickets = async () => {
-
-      try {
-
-        setLoading(true);
-
-        const data =
-          await getTickets();
-
-        setTickets(data);
-
-      } catch (err) {
-
-        console.error(err);
-
-        setError(
-          err.message ||
-          "Unable to load tickets."
-        );
-
-      } finally {
-
-        setLoading(false);
-
-      }
-    };
-
-
     loadTickets();
-
   }, []);
 
+  const stats = useMemo(() => {
+    return {
+      total: tickets.length,
 
-  const openTickets =
-    tickets.filter(
-      (ticket) =>
-        ticket.status === "Open"
-    ).length;
+      open: tickets.filter(
+        (ticket) => ticket.status === "Open"
+      ).length,
 
+      inProgress: tickets.filter(
+        (ticket) => ticket.status === "In Progress"
+      ).length,
 
-  const inProgressTickets =
-    tickets.filter(
-      (ticket) =>
-        ticket.status ===
-        "In Progress"
-    ).length;
+      highPriority: tickets.filter(
+        (ticket) =>
+          ticket.priority === "High" ||
+          ticket.priority === "Critical"
+      ).length,
 
+      resolved: tickets.filter(
+        (ticket) => ticket.status === "Resolved"
+      ).length,
+    };
+  }, [tickets]);
 
-  const urgentTickets =
-    tickets.filter(
-      (ticket) =>
-        ticket.priority ===
-          "High" ||
-        ticket.priority ===
-          "Critical"
-    ).length;
-
-
-  const resolvedTickets =
-    tickets.filter(
-      (ticket) =>
-        ticket.status ===
-          "Resolved" ||
-        ticket.status ===
-          "Closed"
-    ).length;
-
+  const recentTickets = useMemo(() => {
+    return [...tickets]
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt || 0) -
+          new Date(a.createdAt || 0)
+      )
+      .slice(0, 8);
+  }, [tickets]);
 
   const formatDate = (date) => {
+    if (!date) return "—";
 
-    if (!date) return "-";
-
-    return new Date(
-      date
-    ).toLocaleDateString(
+    return new Date(date).toLocaleDateString(
       "en-IN",
       {
-        day: "numeric",
+        day: "2-digit",
         month: "short",
+        year: "numeric",
       }
     );
   };
 
+  const getPriorityClass = (priority) => {
+    switch (priority) {
+      case "Critical":
+        return "priority-critical";
+
+      case "High":
+        return "priority-high";
+
+      case "Medium":
+        return "priority-medium";
+
+      case "Low":
+        return "priority-low";
+
+      default:
+        return "";
+    }
+  };
+
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "Open":
+        return "status-open";
+
+      case "In Progress":
+        return "status-progress";
+
+      case "Pending":
+        return "status-pending";
+
+      case "Resolved":
+        return "status-resolved";
+
+      case "Closed":
+        return "status-closed";
+
+      default:
+        return "";
+    }
+  };
 
   return (
+    <div className="agent-dashboard-page">
 
-    <div className="agent-page">
+      {/* Page Header */}
+      <div className="agent-dashboard-header">
+        <div>
+          <h2>Incident Dashboard</h2>
 
+          <p>
+            Monitor incoming incidents and manage ticket
+            resolution.
+          </p>
+        </div>
 
-      {/* Sidebar */}
+        <button
+          type="button"
+          className="agent-refresh-btn"
+          onClick={loadTickets}
+          disabled={loading}
+        >
+          <RefreshCw
+            size={16}
+            className={loading ? "spin" : ""}
+          />
 
-      <aside className="agent-sidebar">
+          Refresh
+        </button>
+      </div>
 
-        <div className="agent-logo">
+      {/* Error */}
+      {error && (
+        <div className="agent-dashboard-error">
+          <AlertCircle size={17} />
+          <span>{error}</span>
+        </div>
+      )}
 
-          <div className="agent-logo-icon">
-            ◈
+      {/* Statistics */}
+      <div className="agent-stats-grid">
+
+        <div className="agent-stat-card">
+          <div className="agent-stat-icon">
+            <Ticket size={20} />
           </div>
 
           <div>
+            <span>Total Incidents</span>
+            <strong>{stats.total}</strong>
+          </div>
+        </div>
 
-            <h2>
-              IT Helpdesk
-            </h2>
-
-            <span>
-              Agent Portal
-            </span>
-
+        <div className="agent-stat-card">
+          <div className="agent-stat-icon">
+            <Inbox size={20} />
           </div>
 
+          <div>
+            <span>Open</span>
+            <strong>{stats.open}</strong>
+          </div>
         </div>
 
-
-        <nav className="agent-nav">
-
-          <Link
-            to="/agent/dashboard"
-            className="agent-nav-item active"
-          >
-            <LayoutDashboard size={19} />
-            Dashboard
-          </Link>
-
-
-          <Link
-            to="/agent/tickets"
-            className="agent-nav-item"
-          >
-            <Ticket size={19} />
-            All Tickets
-          </Link>
-
-
-          <Link
-            to="/agent/tickets"
-            className="agent-nav-item"
-          >
-            <Clock size={19} />
-            My Tickets
-          </Link>
-
-
-          <a className="agent-nav-item">
-            <BarChart3 size={19} />
-            Analytics
-          </a>
-
-        </nav>
-
-
-        <div className="agent-sidebar-bottom">
-
-          <a className="agent-nav-item">
-            <Settings size={19} />
-            Settings
-          </a>
-
-          <Link
-            to="/login"
-            className="agent-nav-item logout"
-          >
-            <LogOut size={19} />
-            Logout
-          </Link>
-
-        </div>
-
-      </aside>
-
-
-      {/* Main */}
-
-      <main className="agent-main">
-
-
-        {/* Header */}
-
-        <header className="agent-header">
+        <div className="agent-stat-card">
+          <div className="agent-stat-icon">
+            <Clock3 size={20} />
+          </div>
 
           <div>
+            <span>In Progress</span>
+            <strong>{stats.inProgress}</strong>
+          </div>
+        </div>
 
-            <h1>
-              Agent Dashboard
-            </h1>
+        <div className="agent-stat-card">
+          <div className="agent-stat-icon">
+            <AlertCircle size={20} />
+          </div>
+
+          <div>
+            <span>High Priority</span>
+            <strong>{stats.highPriority}</strong>
+          </div>
+        </div>
+
+        <div className="agent-stat-card">
+          <div className="agent-stat-icon">
+            <CheckCircle2 size={20} />
+          </div>
+
+          <div>
+            <span>Resolved</span>
+            <strong>{stats.resolved}</strong>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Recent Incidents */}
+      <section className="agent-incident-section">
+
+        <div className="agent-section-header">
+          <div>
+            <h3>Recent Incident Queue</h3>
 
             <p>
-              Monitor and resolve incoming IT incidents.
+              Latest tickets requiring attention
             </p>
-
           </div>
 
+          <span className="agent-ticket-count">
+            {tickets.length} tickets
+          </span>
+        </div>
 
-          <div className="agent-header-right">
+        {loading ? (
+          <div className="agent-empty-state">
+            <RefreshCw
+              size={22}
+              className="spin"
+            />
 
-            <button
-              className="agent-notification"
-              type="button"
-            >
-              <Bell size={20} />
-              <span></span>
-            </button>
-
-
-            <div className="agent-profile">
-
-              <div className="agent-avatar">
-                <User size={18} />
-              </div>
-
-              <div>
-
-                <strong>
-                  Support Agent
-                </strong>
-
-                <small>
-                  IT Support
-                </small>
-
-              </div>
-
-            </div>
-
+            <p>Loading incidents...</p>
           </div>
+        ) : recentTickets.length === 0 ? (
+          <div className="agent-empty-state">
+            <Inbox size={28} />
 
-        </header>
+            <h4>No incidents found</h4>
 
-
-        {/* Statistics */}
-
-        <section className="agent-stats">
-
-
-          <div className="agent-stat-card">
-
-            <div className="agent-stat-icon blue">
-              <Ticket size={21} />
-            </div>
-
-            <div>
-
-              <span>
-                Open Tickets
-              </span>
-
-              <h2>
-                {openTickets}
-              </h2>
-
-            </div>
-
+            <p>
+              There are currently no incidents in the
+              system.
+            </p>
           </div>
-
-
-          <div className="agent-stat-card">
-
-            <div className="agent-stat-icon purple">
-              <Clock size={21} />
-            </div>
-
-            <div>
-
-              <span>
-                In Progress
-              </span>
-
-              <h2>
-                {inProgressTickets}
-              </h2>
-
-            </div>
-
-          </div>
-
-
-          <div className="agent-stat-card">
-
-            <div className="agent-stat-icon red">
-              <AlertTriangle size={21} />
-            </div>
-
-            <div>
-
-              <span>
-                High Priority
-              </span>
-
-              <h2>
-                {urgentTickets}
-              </h2>
-
-            </div>
-
-          </div>
-
-
-          <div className="agent-stat-card">
-
-            <div className="agent-stat-icon green">
-              <BarChart3 size={21} />
-            </div>
-
-            <div>
-
-              <span>
-                Resolved
-              </span>
-
-              <h2>
-                {resolvedTickets}
-              </h2>
-
-            </div>
-
-          </div>
-
-
-        </section>
-
-
-        {/* Tickets */}
-
-        <section className="agent-tickets-card">
-
-
-          <div className="agent-section-header">
-
-            <div>
-
-              <h2>
-                Incident Queue
-              </h2>
-
-              <p>
-                Recently submitted support incidents
-              </p>
-
-            </div>
-
-
-            <span className="ticket-count">
-              {tickets.length} tickets
-            </span>
-
-          </div>
-
-
-          {error && (
-
-            <div className="agent-error">
-              {error}
-            </div>
-
-          )}
-
-
-          {loading ? (
-
-            <div className="agent-message">
-              Loading incidents...
-            </div>
-
-          ) : tickets.length === 0 ? (
-
-            <div className="agent-message">
-
-              <Ticket size={32} />
-
-              <h3>
-                No incidents yet
-              </h3>
-
-              <p>
-                New employee tickets will appear here.
-              </p>
-
-            </div>
-
-          ) : (
-
-            <div className="agent-table">
-
-
-              <div className="agent-row agent-table-header">
-
-                <span>
-                  Incident
-                </span>
-
-                <span>
-                  Category
-                </span>
-
-                <span>
-                  Priority
-                </span>
-
-                <span>
-                  Status
-                </span>
-
-                <span>
-                  Created
-                </span>
-
-                <span>
-                  Action
-                </span>
-
-              </div>
-
-
-              {tickets.map(
-                (ticket) => (
-
-                  <div
-                    className="agent-row"
-                    key={ticket._id}
-                  >
-
-                    <div className="agent-ticket-title">
-
-                      <strong>
+        ) : (
+          <div className="agent-table-wrapper">
+
+            <table className="agent-ticket-table">
+
+              <thead>
+                <tr>
+                  <th>Ticket ID</th>
+                  <th>Issue</th>
+                  <th>Category</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Created</th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {recentTickets.map((ticket) => (
+                  <tr key={ticket.ticketId}>
+
+                    <td>
+                      <span className="agent-ticket-id">
                         {ticket.ticketId}
-                      </strong>
-
-                      <span>
-                        {ticket.title}
                       </span>
+                    </td>
 
-                    </div>
+                    <td>
+                      <div className="agent-issue-cell">
+                        <strong>
+                          {ticket.title ||
+                            "Untitled issue"}
+                        </strong>
 
+                        <span>
+                          {ticket.createdBy?.name ||
+                            "Employee"}
+                        </span>
+                      </div>
+                    </td>
 
-                    <span>
-                      {ticket.category}
-                    </span>
+                    <td>
+                      {ticket.category || "Other"}
+                    </td>
 
+                    <td>
+                      <span
+                        className={`agent-badge ${getPriorityClass(
+                          ticket.priority
+                        )}`}
+                      >
+                        {ticket.priority ||
+                          "Medium"}
+                      </span>
+                    </td>
 
-                    <span
-                      className={`agent-priority ${
-                        ticket.priority.toLowerCase()
-                      }`}
-                    >
-                      {ticket.priority}
-                    </span>
+                    <td>
+                      <span
+                        className={`agent-badge ${getStatusClass(
+                          ticket.status
+                        )}`}
+                      >
+                        {ticket.status || "Open"}
+                      </span>
+                    </td>
 
-
-                    <span
-                      className={`agent-status ${
-                        ticket.status
-                          .toLowerCase()
-                          .replace(
-                            /\s+/g,
-                            "-"
-                          )
-                      }`}
-                    >
-                      {ticket.status}
-                    </span>
-
-
-                    <span>
+                    <td>
                       {formatDate(
                         ticket.createdAt
                       )}
-                    </span>
+                    </td>
 
+                    <td>
+                      <button
+                        type="button"
+                        className="agent-review-btn"
+                        onClick={() =>
+                          navigate(
+                            `/agent/tickets/${encodeURIComponent(
+                              ticket.ticketId
+                            )}`
+                          )
+                        }
+                      >
+                        Review
+                      </button>
+                    </td>
 
-                    <Link
-                      to={`/agent/tickets/${encodeURIComponent(
-                        ticket.ticketId
-                      )}`}
-                      className="review-button"
-                    >
-                      Review
-                    </Link>
+                  </tr>
+                ))}
+              </tbody>
 
-                  </div>
+            </table>
 
-                )
-              )}
+          </div>
+        )}
 
-            </div>
-
-          )}
-
-        </section>
-
-
-      </main>
+      </section>
 
     </div>
   );
 }
-
 
 export default AgentDashboard;

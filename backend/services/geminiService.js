@@ -2,16 +2,15 @@ const { GoogleGenAI } = require("@google/genai");
 
 const apiKey = process.env.GEMINI_API_KEY;
 
-if (!apiKey) {
-  throw new Error("GEMINI_API_KEY is missing from .env");
-}
-
-const ai = new GoogleGenAI({
-  apiKey,
-});
+const ai = apiKey
+  ? new GoogleGenAI({
+      apiKey,
+    })
+  : null;
 
 const ticketAnalysisSchema = {
   type: "object",
+
   properties: {
     category: {
       type: "string",
@@ -49,7 +48,41 @@ const ticketAnalysisSchema = {
 };
 
 
-const analyzeTicket = async (title, description) => {
+/* ============================================
+   FALLBACK ANALYSIS
+============================================ */
+
+const fallbackAnalysis = () => {
+  return {
+    category: "Other",
+    priority: "Medium",
+
+    suggestedResolution:
+      "Automated analysis is currently unavailable. Please review the incident details and perform standard IT support troubleshooting.",
+
+    aiAvailable: false,
+  };
+};
+
+
+/* ============================================
+   ANALYZE TICKET
+============================================ */
+
+const analyzeTicket = async (
+  title,
+  description
+) => {
+
+  // No API key configured
+  if (!ai) {
+    console.warn(
+      "Gemini AI unavailable: GEMINI_API_KEY is not configured."
+    );
+
+    return fallbackAnalysis();
+  }
+
   const prompt = `
 You are an IT helpdesk incident classification assistant.
 
@@ -77,21 +110,38 @@ Important:
   general enterprise IT support environment.
 `;
 
-  const interaction = await ai.interactions.create({
-    model: "gemini-3.5-flash-lite",
+  try {
 
-    input: prompt,
+    const interaction =
+      await ai.interactions.create({
+        model: "gemini-3.5-flash-lite",
 
-    response_format: {
-      type: "text",
-      mime_type: "application/json",
-      schema: ticketAnalysisSchema,
-    },
-  });
+        input: prompt,
 
-  const result = JSON.parse(interaction.output_text);
+        response_format: {
+          type: "text",
+          mime_type: "application/json",
+          schema: ticketAnalysisSchema,
+        },
+      });
 
-  return result;
+    const result =
+      JSON.parse(interaction.output_text);
+
+    return {
+      ...result,
+      aiAvailable: true,
+    };
+
+  } catch (error) {
+
+    console.error(
+      "Gemini analysis failed. Using fallback:",
+      error.message || error
+    );
+
+    return fallbackAnalysis();
+  }
 };
 
 

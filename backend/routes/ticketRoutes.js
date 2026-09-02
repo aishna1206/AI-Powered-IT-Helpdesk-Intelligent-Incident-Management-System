@@ -14,9 +14,9 @@ const {
 const router = express.Router();
 
 
-// ============================================
-// CREATE TICKET
-// ============================================
+/* ============================================
+   CREATE TICKET
+============================================ */
 
 router.post(
   "/",
@@ -26,8 +26,8 @@ router.post(
     "agent",
     "admin"
   ),
-  async (req, res) => {
 
+  async (req, res) => {
     try {
 
       const {
@@ -35,6 +35,8 @@ router.post(
         description,
       } = req.body;
 
+
+      /* Validation */
 
       if (!title || !description) {
         return res.status(400).json({
@@ -44,10 +46,13 @@ router.post(
       }
 
 
+      /* ========================================
+         AI ANALYSIS
+      ======================================== */
+
       console.log(
         "Analyzing ticket with AI..."
       );
-
 
       const aiAnalysis =
         await analyzeTicket(
@@ -56,14 +61,31 @@ router.post(
         );
 
 
-      console.log(
-        "AI analysis completed:"
-      );
+      if (aiAnalysis.aiAvailable) {
 
-      console.log(
-        aiAnalysis
-      );
+        console.log(
+          "AI analysis completed:"
+        );
 
+        console.log({
+          category:
+            aiAnalysis.category,
+
+          priority:
+            aiAnalysis.priority,
+        });
+
+      } else {
+
+        console.warn(
+          "AI analysis unavailable. Using fallback values."
+        );
+      }
+
+
+      /* ========================================
+         TICKET ID
+      ======================================== */
 
       const ticketId =
         `INC-${Date.now()
@@ -71,14 +93,22 @@ router.post(
           .slice(-6)}`;
 
 
+      /* ========================================
+         CREATE TICKET
+      ======================================== */
+
       const ticket =
         await Ticket.create({
 
           ticketId,
 
-          title,
+          title:
 
-          description,
+            title.trim(),
+
+          description:
+
+            description.trim(),
 
           category:
             aiAnalysis.category,
@@ -90,6 +120,7 @@ router.post(
             "Open",
 
           createdBy: {
+
             name:
               req.user.name,
 
@@ -98,6 +129,7 @@ router.post(
           },
 
           aiAnalysis: {
+
             suggestedResolution:
               aiAnalysis.suggestedResolution,
 
@@ -107,13 +139,24 @@ router.post(
         });
 
 
+      /* ========================================
+         RESPONSE
+      ======================================== */
+
+      const message =
+        aiAnalysis.aiAvailable
+          ? "Ticket created successfully"
+          : "Ticket created successfully. Automated analysis was unavailable.";
+
+
       res.status(201).json({
 
-        message:
-          "Ticket created successfully",
+        message,
+
+        aiAvailable:
+          aiAnalysis.aiAvailable,
 
         ticket,
-
       });
 
 
@@ -125,22 +168,24 @@ router.post(
       );
 
       res.status(500).json({
+
         message:
           "Failed to create ticket",
-      });
 
+      });
     }
   }
 );
 
 
-// ============================================
-// GET ALL TICKETS
-// ============================================
+/* ============================================
+   GET ALL TICKETS
+============================================ */
 
 router.get(
   "/",
   authenticateUser,
+
   async (req, res) => {
 
     try {
@@ -149,13 +194,16 @@ router.get(
 
 
       // Employees only see their own tickets.
-      if (req.user.role === "employee") {
+
+      if (
+        req.user.role ===
+        "employee"
+      ) {
 
         query = {
           "createdBy.email":
             req.user.email,
         };
-
       }
 
 
@@ -178,22 +226,24 @@ router.get(
       );
 
       res.status(500).json({
+
         message:
           "Failed to fetch tickets",
-      });
 
+      });
     }
   }
 );
 
 
-// ============================================
-// GET ONE TICKET
-// ============================================
+/* ============================================
+   GET ONE TICKET
+============================================ */
 
 router.get(
   "/:ticketId",
   authenticateUser,
+
   async (req, res) => {
 
     try {
@@ -211,11 +261,11 @@ router.get(
           message:
             "Ticket not found",
         });
-
       }
 
 
       // Employees can only access their own tickets.
+
       if (
         req.user.role === "employee" &&
         ticket.createdBy.email !==
@@ -226,7 +276,6 @@ router.get(
           message:
             "You do not have permission to view this ticket",
         });
-
       }
 
 
@@ -241,18 +290,19 @@ router.get(
       );
 
       res.status(500).json({
+
         message:
           "Failed to fetch ticket",
-      });
 
+      });
     }
   }
 );
 
 
-// ============================================
-// UPDATE TICKET
-// ============================================
+/* ============================================
+   UPDATE TICKET
+============================================ */
 
 router.patch(
   "/:ticketId",
@@ -261,6 +311,7 @@ router.patch(
     "agent",
     "admin"
   ),
+
   async (req, res) => {
 
     try {
@@ -276,25 +327,37 @@ router.patch(
       const updates = {};
 
 
-      if (status !== undefined) {
+      if (
+        status !== undefined
+      ) {
+
         updates.status =
           status;
       }
 
 
-      if (priority !== undefined) {
+      if (
+        priority !== undefined
+      ) {
+
         updates.priority =
           priority;
       }
 
 
-      if (resolution !== undefined) {
+      if (
+        resolution !== undefined
+      ) {
+
         updates.resolution =
           resolution;
       }
 
 
-      if (assignedTo !== undefined) {
+      if (
+        assignedTo !== undefined
+      ) {
+
         updates.assignedTo =
           assignedTo;
       }
@@ -302,19 +365,22 @@ router.patch(
 
       const ticket =
         await Ticket.findOneAndUpdate(
+
           {
             ticketId:
               req.params.ticketId,
           },
 
           {
-            $set: updates,
+            $set:
+              updates,
           },
 
           {
             new: true,
             runValidators: true,
           }
+
         );
 
 
@@ -324,7 +390,6 @@ router.patch(
           message:
             "Ticket not found",
         });
-
       }
 
 
@@ -346,10 +411,11 @@ router.patch(
       );
 
       res.status(500).json({
+
         message:
           "Failed to update ticket",
-      });
 
+      });
     }
   }
 );

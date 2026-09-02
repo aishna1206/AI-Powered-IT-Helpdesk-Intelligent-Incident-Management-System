@@ -4,7 +4,6 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
 
-
 // ============================================
 // LOAD ENVIRONMENT VARIABLES FIRST
 // ============================================
@@ -28,6 +27,10 @@ const userRoutes =
   require("./routes/userRoutes");
 
 
+// ============================================
+// APP CONFIGURATION
+// ============================================
+
 const app = express();
 
 const PORT =
@@ -42,35 +45,27 @@ const MONGO_URI =
 // ============================================
 
 if (!MONGO_URI) {
-
   console.error(
-    "ERROR: MONGO_URI is missing from .env"
+    "ERROR: MONGO_URI is missing from environment variables"
   );
 
   process.exit(1);
-
 }
-
 
 if (!process.env.GEMINI_API_KEY) {
-
   console.error(
-    "ERROR: GEMINI_API_KEY is missing from .env"
+    "ERROR: GEMINI_API_KEY is missing from environment variables"
   );
 
   process.exit(1);
-
 }
 
-
 if (!process.env.JWT_SECRET) {
-
   console.error(
-    "ERROR: JWT_SECRET is missing from .env"
+    "ERROR: JWT_SECRET is missing from environment variables"
   );
 
   process.exit(1);
-
 }
 
 
@@ -88,24 +83,17 @@ app.use(express.json());
 // ============================================
 
 app.get("/", (req, res) => {
-
   res.json({
-    message:
-      "AI IT Helpdesk API is running",
+    message: "AI IT Helpdesk API is running",
   });
-
 });
 
 
 app.get("/api/health", (req, res) => {
-
   res.json({
     status: "OK",
-
-    message:
-      "Backend is connected successfully",
+    message: "Backend is connected successfully",
   });
-
 });
 
 
@@ -134,9 +122,7 @@ app.use(
 // ============================================
 
 const startServer = async () => {
-
   try {
-
     console.log(
       "Connecting to MongoDB..."
     );
@@ -149,20 +135,17 @@ const startServer = async () => {
       "MongoDB connected successfully"
     );
 
-
     app.listen(
       PORT,
+      "0.0.0.0",
       () => {
-
         console.log(
-          `Server running on http://localhost:${PORT}`
+          `Server running on port ${PORT}`
         );
-
       }
     );
 
   } catch (error) {
-
     console.error(
       "MongoDB connection failed:"
     );
@@ -171,8 +154,8 @@ const startServer = async () => {
       error.message
     );
 
+    process.exit(1);
   }
-
 };
 
 

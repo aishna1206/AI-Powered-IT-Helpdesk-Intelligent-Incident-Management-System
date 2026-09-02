@@ -1,16 +1,75 @@
-# React + Vite
+# AI-Powered IT Helpdesk
+### Intelligent Incident Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An enterprise-style IT support platform that combines role-based incident
+management with Gemini-powered ticket classification, priority detection,
+and resolution recommendations.
 
-Currently, two official plugins are available:
+## System Architecture
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![AI-Powered IT Helpdesk System Architecture](docs/architecture.png)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Employee
+- Create and track support tickets
+- View ticket status and resolution
+- Receive ticket notifications
+- Access knowledge base
 
-## Expanding the ESLint configuration
+### Agent
+- View incoming incidents
+- Review and update tickets
+- Assign and resolve incidents
+- Monitor incident dashboard
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Admin
+- Manage tickets and users
+- Monitor support operations
+- View analytics
+- Receive operational notifications
+
+### AI Assistance
+- Automatic incident category classification
+- Priority detection
+- Suggested resolutions
+- Fallback handling when AI is unavailable
+
+## Workflow
+
+Employee creates ticket  
+↓  
+Backend processes incident  
+↓  
+Gemini analyzes category, priority and resolution  
+↓  
+Ticket stored in MongoDB  
+↓  
+Agent reviews and resolves ticket  
+↓  
+Employee receives status updates
+
+## Tech Stack
+
+**Frontend:** React, Vite, React Router  
+**Backend:** Node.js, Express.js  
+**Database:** MongoDB Atlas, Mongoose  
+**AI:** Google Gemini API  
+**Authentication:** JWT, bcrypt
+
+## Project Structure
+
+```text
+frontend/
+  src/
+    components/
+    context/
+    layouts/
+    pages/
+    services/
+
+backend/
+  models/
+  routes/
+  services/
+  server.js

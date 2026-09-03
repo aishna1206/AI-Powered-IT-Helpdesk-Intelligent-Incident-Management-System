@@ -161,16 +161,18 @@ architecture.
         │  CLOSED  │
         └──────────┘
 
-👥 User Roles
-Role	        Responsibilities
-
-👤 Employee	Create tickets, track incidents, view resolutions, receive notifications
-🎧 Agent	Review incidents, assign tickets, update status, add resolutions
-🛡️ Admin	Manage tickets and users, monitor analytics, oversee support operations
 
 
+<h3>👥 User Roles</h3>
+<b>  Role	            Responsibilities</b>
 
-🤖 AI-Assisted Incident Analysis
+👤 Employee	     Create tickets, track incidents, view resolutions, receive notifications
+🎧 Agent	       Review incidents, assign tickets, update status, add resolutions
+🛡️ Admin	        Manage tickets and users, monitor analytics, oversee support operations
+
+
+
+<h3>🤖 AI-Assisted Incident Analysis</h3>
 
 Gemini acts as an assistive intelligence layer rather than replacing the
 support team.
@@ -183,6 +185,8 @@ Category	Classifies the incident type
 Priority	Estimates support urgency
 Suggested Resolution	Provides an initial troubleshooting recommendation
 
+
+Example:
 Employee submits:
 "Unable to connect my laptop to office Wi-Fi."
 
@@ -216,7 +220,7 @@ and reconnect to the corporate network.
                      ▼
              Ticket is created
 
-🔐 Authentication & Security
+<h3>🔐 Authentication & Security</h3>
 
 The application uses JWT-based authentication combined with
 role-based authorization.
@@ -239,12 +243,12 @@ Role verification
   ├──────── Agent Portal
   └──────── Admin Portal
 
-  🧰 Technology Stack
-Layer	       Technologies
-Frontend       React, Vite, React Router
-UI Icons       Lucide React
-Backend	       Node.js, Express.js
-Database       MongoDB Atlas, Mongoose
-AI	       Google Gemini API, @google/genai
-Authentication JWT, bcrypt
-Deployment     Render
+  <h3>🧰 Technology Stack</h3>
+<b>Layer	             Technologies</b>
+Frontend          React, Vite, React Router
+UI Icons          Lucide React
+Backend	          Node.js, Express.js
+Database          MongoDB Atlas, Mongoose
+AI	              Google Gemini API, @google/genai
+Authentication    JWT, bcrypt
+Deployment        Render

@@ -181,7 +181,7 @@ For each new incident, the backend attempts to determine:
 | **Category** | Classifies the incident type |
 | **Priority** | Estimates support urgency |
 | **Suggested Resolution** | Provides an initial troubleshooting recommendation |
-```
+``
 
 ### Example
 
@@ -256,3 +256,35 @@ Role verification
 | **AI** | Google Gemini API, `@google/genai` |
 | **Authentication** | JWT, bcrypt |
 | **Deployment** | Render |
+``
+
+# Production
+
+Frontend
+
+https://ai-it-helpdesk-frontend.onrender.com/
+
+
+Backend
+
+https://ai-powered-it-helpdesk-intelligent.onrender.com/
+
+``
+
+## 📸 Screenshots
+
+### Employee Portal
+
+![Employee Dashboard](docs/screenshots/employee_portal_1.png)
+![Employee Knowledge Base](docs/screenshots/employee_portal_2.png)
+![Employee Ticket](docs/screenshots/employee_portal_3.png)
+
+### Agent Portal
+
+![Agent Dashboard](docs/screenshots/agent_portal_1.png)
+
+### Admin Portal
+
+![Admin Dashboard](docs/screenshots/admin_portal_1.png)
+
+![Admin Analytics](docs/screenshots/admin_portal_2.png)

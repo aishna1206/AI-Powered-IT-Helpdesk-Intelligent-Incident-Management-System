@@ -160,14 +160,16 @@ architecture.
                       ┌──────────┐
                       │  CLOSED  │
                       └──────────┘
+```
 
 ## 👥 User Roles
 
 | Role | Responsibilities |
-| :--- | :--- |
+| --- | --- |
 | 👤 Employee | Create tickets, track incidents, view resolutions, receive notifications |
 | 🎧 Agent | Review incidents, assign tickets, update status, add resolutions |
 | 👤 Admin | Manage tickets and users, monitor analytics, oversee support operations |
+```
 
 ## 🤖 AI-Assisted Incident Analysis
 
@@ -176,12 +178,14 @@ Gemini acts as an assistive intelligence layer rather than replacing the support
 For each new incident, the backend attempts to determine:
 
 | AI Output | Purpose |
-| :--- | :--- |
+| --- | --- |
 | **Category** | Classifies the incident type |
 | **Priority** | Estimates support urgency |
 | **Suggested Resolution** | Provides an initial troubleshooting recommendation |
+```
 
 ### Example
+
 
 Employee submits:  
 > "Unable to connect my laptop to office Wi-Fi."

@@ -169,8 +169,7 @@ architecture.
 | 👤 Employee | Create tickets, track incidents, view resolutions, receive notifications |
 | 🎧 Agent | Review incidents, assign tickets, update status, add resolutions |
 | 👤 Admin | Manage tickets and users, monitor analytics, oversee support operations |
-```
-
+``
 ## 🤖 AI-Assisted Incident Analysis
 
 Gemini acts as an assistive intelligence layer rather than replacing the support team.

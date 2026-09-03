@@ -87,7 +87,7 @@ architecture.
              └───────────────────┘   └──────────────────────┘
 
 
-                          ┌──────────────────┐
+             ┌──────────────────┐
              │ Employee creates │
              │     ticket       │
              └────────┬─────────┘
@@ -140,31 +140,31 @@ architecture.
               └─────────────────┘
 
                     ┌───────┐
-      │  OPEN │
-      └───┬───┘
-          │
-          ▼
- ┌────────────────┐
- │  IN PROGRESS   │
- └───────┬────────┘
-         │
-     ┌───┴───────────┐
-     │               │
-     ▼               ▼
-┌─────────┐     ┌───────────┐
-│ PENDING │     │  RESOLVED │
-└────┬────┘     └─────┬─────┘
-     │                │
-     └───────┬────────┘
-             ▼
-        ┌──────────┐
-        │  CLOSED  │
-        └──────────┘
+                    │  OPEN │
+                    └───┬───┘
+                        │
+                        ▼
+              ┌────────────────┐
+              │  IN PROGRESS   │
+              └───────┬────────┘
+                      │
+                  ┌───┴───────────┐
+                  │               │
+                  ▼               ▼
+              ┌─────────┐     ┌───────────┐
+              │ PENDING │     │  RESOLVED │
+              └────┬────┘     └─────┬─────┘
+                  │                │
+                  └───────┬────────┘
+                          ▼
+                      ┌──────────┐
+                      │  CLOSED  │
+                      └──────────┘
 
 
 
-<h3>👥 User Roles</h3>
-<b>  Role	            Responsibilities</b>
+## 👥 User Roles
+** Role	            Responsibilities**
 
 👤 Employee	     Create tickets, track incidents, view resolutions, receive notifications
 🎧 Agent	       Review incidents, assign tickets, update status, add resolutions
@@ -172,7 +172,7 @@ architecture.
 
 
 
-<h3>🤖 AI-Assisted Incident Analysis</h3>
+## 🤖 AI-Assisted Incident Analysis
 
 Gemini acts as an assistive intelligence layer rather than replacing the
 support team.
@@ -220,7 +220,7 @@ and reconnect to the corporate network.
                      ▼
              Ticket is created
 
-<h3>🔐 Authentication & Security</h3>
+## 🔐 Authentication & Security
 
 The application uses JWT-based authentication combined with
 role-based authorization.
@@ -243,8 +243,8 @@ Role verification
   ├──────── Agent Portal
   └──────── Admin Portal
 
-  <h3>🧰 Technology Stack</h3>
-<b>Layer	             Technologies</b>
+  ## 🧰 Technology Stack
+**Layer	             Technologies**
 Frontend          React, Vite, React Router
 UI Icons          Lucide React
 Backend	          Node.js, Express.js

@@ -161,35 +161,32 @@ architecture.
                       │  CLOSED  │
                       └──────────┘
 
-
-
 ## 👥 User Roles
-** Role	            Responsibilities**
 
-👤 Employee	     Create tickets, track incidents, view resolutions, receive notifications
-🎧 Agent	       Review incidents, assign tickets, update status, add resolutions
-🛡️ Admin	        Manage tickets and users, monitor analytics, oversee support operations
-
-
+| Role | Responsibilities |
+| :--- | :--- |
+| 👤 Employee | Create tickets, track incidents, view resolutions, receive notifications |
+| 🎧 Agent | Review incidents, assign tickets, update status, add resolutions |
+| 👤 Admin | Manage tickets and users, monitor analytics, oversee support operations |
 
 ## 🤖 AI-Assisted Incident Analysis
 
-Gemini acts as an assistive intelligence layer rather than replacing the
-support team.
+Gemini acts as an assistive intelligence layer rather than replacing the support team.
 
 For each new incident, the backend attempts to determine:
 
-AI Output	Purpose
+| AI Output | Purpose |
+| :--- | :--- |
+| **Category** | Classifies the incident type |
+| **Priority** | Estimates support urgency |
+| **Suggested Resolution** | Provides an initial troubleshooting recommendation |
 
-Category	Classifies the incident type
-Priority	Estimates support urgency
-Suggested Resolution	Provides an initial troubleshooting recommendation
+### Example
 
+Employee submits:  
+> "Unable to connect my laptop to office Wi-Fi."
 
-Example:
-Employee submits:
-"Unable to connect my laptop to office Wi-Fi."
-
+```text
                 ↓
 
 Gemini Analysis
@@ -219,12 +216,13 @@ and reconnect to the corporate network.
               └──────┬──────┘
                      ▼
              Ticket is created
+```
 
 ## 🔐 Authentication & Security
 
-The application uses JWT-based authentication combined with
-role-based authorization.
+The application uses JWT-based authentication combined with role-based authorization.
  
+```text
  Login
   │
   ▼
@@ -242,13 +240,16 @@ Role verification
   ├──────── Employee Portal
   ├──────── Agent Portal
   └──────── Admin Portal
+```
 
-  ## 🧰 Technology Stack
-**Layer	             Technologies**
-Frontend          React, Vite, React Router
-UI Icons          Lucide React
-Backend	          Node.js, Express.js
-Database          MongoDB Atlas, Mongoose
-AI	              Google Gemini API, @google/genai
-Authentication    JWT, bcrypt
-Deployment        Render
+## 🧰 Technology Stack
+
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | React, Vite, React Router |
+| **UI Icons** | Lucide React |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB Atlas, Mongoose |
+| **AI** | Google Gemini API, `@google/genai` |
+| **Authentication** | JWT, bcrypt |
+| **Deployment** | Render |
